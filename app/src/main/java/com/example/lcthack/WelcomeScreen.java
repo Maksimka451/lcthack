@@ -19,6 +19,15 @@ public class WelcomeScreen extends AppCompatActivity {
         TextView signIn;
         signIn = findViewById(R.id.textView16);
 
+        TextView text23 = findViewById(R.id.textView23);
+
+        text23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WelcomeScreen.this, CalendarScreen.class));
+            }
+        });
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
