@@ -35,6 +35,18 @@
     <string name="SecurityHeader">Придумайте пароль, контрольный вопрос и ответ на него для получения и восстановления доступа к личному кабинету</string>
     <string name="RegContacktsUnder">На указанные номер мобильного телефона и адрес электронной почты будут отправлены коды подтверждения регистрации</string>
 
+    <string name="With_support_Moscow">При поддержке Правительства Москвы</string>
+    <string name="One_answer">Одна платформа для решения вопросов с проверками бизнеса</string>
+    <string name="Control_txt_Buis">Сервис взаимодействия бизнеса с органами контроля</string>
+    <string name="Eazy_answers">Понятные ответы без отписок и долгих ожиданий</string>
+    <string name="Special_answers">Специально разработанные сервисы позволят вам получить быстрые и понятные ответы на ваши вопросы </string>
+    <string name="Your_answers">Задать свой вопрос</string>
+    <string name="Chek_yor_buisness">Проверьте свой бизнес перед открытием</string>
+    <string name="Knows_control">Узнайте, кто и зачем придет к вам с проверками, и сохраните чеклист, чтобы быть готовым</string>
+    <string name="Simulator">Попробовать симулятор нагрузки на бизнес</string>
+    <string name="Profile_main_txt">Единый цифровой профиль</string>
+    <string name="Info_buiseness_txt">Заполните информацию о компаниях один раз и пользуйтесь сервисами намного эффективнее</string>
+    <string name="Fill_your_profile_txt">Заполнить свой цифровой профиль </string>
 
     <string name="OpenControl_txt1">открытый</string>
     <string name="OpenControl_txt2">КОНТРОЛЬ</string>
