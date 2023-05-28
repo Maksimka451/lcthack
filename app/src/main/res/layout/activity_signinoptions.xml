@@ -8,12 +8,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/calendar_separator_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:background="@color/calendar_separator_color"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,16 +46,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/OpenControl_txt1"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:text="@string/OpenControl_txt1" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_extrabold"
-                        android:textColor="@color/black"
                         android:text="@string/OpenControl_txt2"
+                        android:textColor="@color/black"
                         tools:textSize="16sp" />
                 </LinearLayout>
 
@@ -89,8 +93,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:textColor="@color/black"
                 android:text="@string/OpenControlEnterHeader"
+                android:textColor="@color/black"
                 tools:textSize="20sp" />
 
             <TextView
@@ -99,8 +103,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:textColor="@color/black"
                 android:text="@string/OpenControlEnterHeaderUnder"
+                android:textColor="@color/black"
                 tools:textSize="14sp" />
 
             <LinearLayout
@@ -127,8 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:textColor="@color/black"
                     android:text="@string/OpenControlEnterLikeOC"
+                    android:textColor="@color/black"
                     tools:textSize="14sp" />
             </LinearLayout>
 
@@ -157,8 +161,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:textColor="@color/black"
                     android:text="@string/OpenControlEnterLikeBusiness"
+                    android:textColor="@color/black"
                     tools:textSize="14sp" />
             </LinearLayout>
 
@@ -166,6 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="40dp"
+                android:background="@color/calendar_separator_color"
                 android:orientation="horizontal">
 
                 <TextView
@@ -174,8 +179,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:textColor="@color/red"
                     android:text="@string/OpenControlEnterAlternative"
+                    android:textColor="@color/red"
                     tools:textSize="14sp" />
 
                 <ImageView

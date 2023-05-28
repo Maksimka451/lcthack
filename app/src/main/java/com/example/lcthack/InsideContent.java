@@ -80,7 +80,7 @@ public class InsideContent extends AppCompatActivity {
 
     private void signOut() {
         mAuth.signOut();
-        Intent intent = new Intent(InsideContent.this, Login.class);
+        Intent intent = new Intent(InsideContent.this, Signinoptions.class);
         startActivity(intent);
     }
 }

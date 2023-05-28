@@ -263,16 +263,16 @@ public class CalendarActivity extends AppCompatActivity {
                                     RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(!(snapshot.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[2]).exists()))
+                                            if(!(snapshot.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[0]).exists()))
                                             {
                                                 HashMap<String, Object> userDataMap = new HashMap<>();
-                                                userDataMap.put("KNO", data[0]);
-                                                userDataMap.put("Type of control", data[1]);
-                                                userDataMap.put("Theme of consulting", data[2]);
-                                                userDataMap.put("Date", data[3]);
-                                                userDataMap.put("Time", data[4]);
+                                                userDataMap.put("kno", data[0]);
+                                                userDataMap.put("typeofcontrol", data[1]);
+                                                userDataMap.put("themeofconsulting", data[2]);
+                                                userDataMap.put("date", data[3]);
+                                                userDataMap.put("time", data[4]);
 
-                                                RootRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[2]).updateChildren(userDataMap)
+                                                RootRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[0]).updateChildren(userDataMap)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
@@ -298,18 +298,18 @@ public class CalendarActivity extends AppCompatActivity {
                                     RootRef2.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(!(snapshot.child("Consulting").child(mAuth.getCurrentUser().getUid()).exists()))
+                                            if(!(snapshot.child("Consulting").child(data[0]).exists()))
                                             {
                                                 HashMap<String, Object> userDataMap = new HashMap<>();
-                                                userDataMap.put("KNO", data[0]);
-                                                userDataMap.put("Type of control", data[1]);
-                                                userDataMap.put("Theme of consulting", data[2]);
-                                                userDataMap.put("Date", data[3]);
-                                                userDataMap.put("Time", data[4]);
-                                                userDataMap.put("UserId", mAuth.getCurrentUser().getUid());
-                                                userDataMap.put("UserEmail", mAuth.getCurrentUser().getEmail());
+                                                userDataMap.put("kno", data[0]);
+                                                userDataMap.put("typeofcontrol", data[1]);
+                                                userDataMap.put("themeofconsulting", data[2]);
+                                                userDataMap.put("date", data[3]);
+                                                userDataMap.put("time", data[4]);
+                                                userDataMap.put("userid", mAuth.getCurrentUser().getUid());
+                                                userDataMap.put("useremail", mAuth.getCurrentUser().getEmail());
 
-                                                RootRef.child("Consulting").child(mAuth.getCurrentUser().getUid()).updateChildren(userDataMap)
+                                                RootRef.child("Consulting").child(data[0]).updateChildren(userDataMap)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
