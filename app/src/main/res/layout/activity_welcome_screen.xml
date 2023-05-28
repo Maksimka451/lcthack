@@ -229,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="40dp"
-                android:gravity="center"
+                android:gravity="center|left"
                 android:orientation="horizontal">
 
                 <ImageView

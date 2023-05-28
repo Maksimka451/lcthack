@@ -39,7 +39,7 @@ public class InsideContent extends AppCompatActivity {
                     return true;
                 } else if(item.getItemId() == R.id.services){
                     startActivity(new Intent(getApplicationContext()
-                            , Services.class));
+                            , CalendarActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 } else if(item.getItemId() == R.id.chat){

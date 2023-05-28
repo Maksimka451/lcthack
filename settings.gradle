@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "lcthack"
 include ':app'
-include ':calendar'

@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.calendar.CalendarActivity;
-
 public class WelcomeScreen extends AppCompatActivity {
 
     @SuppressLint("MissingInflatedId")
@@ -20,15 +18,6 @@ public class WelcomeScreen extends AppCompatActivity {
 
         TextView signIn;
         signIn = findViewById(R.id.textView16);
-
-        TextView text23 = findViewById(R.id.textView23);
-
-        text23.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WelcomeScreen.this, CalendarActivity.class));
-            }
-        });
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override

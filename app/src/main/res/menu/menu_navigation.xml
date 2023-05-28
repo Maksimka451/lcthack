@@ -7,7 +7,7 @@
         android:icon="@drawable/baseline_home_24"/>
 
     <item
-        android:title="@string/Service"
+        android:title="@string/consultation_menu"
         android:id="@+id/services"
         android:icon="@drawable/baseline_insert_chart_24"/>
 

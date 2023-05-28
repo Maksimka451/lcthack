@@ -1,11 +1,4 @@
-package com.example.calendar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.lcthack;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -17,7 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -37,9 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -71,12 +68,38 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+        setContentView(com.example.lcthack.R.layout.activity_calendar);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottm_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.services);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if(item.getItemId() == R.id.inside_content){
+                    startActivity(new Intent(getApplicationContext()
+                            , InsideContent.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                } else if(item.getItemId() == R.id.services){
+
+                    return true;
+                } else if(item.getItemId() == R.id.chat){
+                    startActivity(new Intent(getApplicationContext()
+                            , Chat.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
-        spinnerKNO = findViewById(R.id.spinnerKNO);
-        spinnerControl = findViewById(R.id.spinner_control);
-        spinnerTopic = findViewById(R.id.spinner_topic);
+        spinnerKNO = findViewById(com.example.lcthack.R.id.spinnerKNO);
+        spinnerControl = findViewById(com.example.lcthack.R.id.spinner_control);
+        spinnerTopic = findViewById(com.example.lcthack.R.id.spinner_topic);
 
         try {
             JSONObject json = new JSONObject(loadJSON("data.json"));
@@ -169,7 +192,7 @@ public class CalendarActivity extends AppCompatActivity {
         Date date = new Date();
         mouthJSON = Integer.parseInt(simpleDateFormat.format(date)) - 1;
 
-        slotsRecyclerView = findViewById(R.id.slotsRecyclerView);
+        slotsRecyclerView = findViewById(com.example.lcthack.R.id.slotsRecyclerView);
         slots = new ArrayList<>();
         slotsBuf = new ArrayList<>();
         slotAdapter = new SlotAdapter(slotsBuf);
@@ -177,9 +200,9 @@ public class CalendarActivity extends AppCompatActivity {
 
         parseJSONFile(mouthJSON);
 
-        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
-        mouth = findViewById(R.id.mouth);
-        String[] months = getResources().getStringArray(R.array.months_array);
+        calendarRecyclerView = findViewById(com.example.lcthack.R.id.calendarRecyclerView);
+        mouth = findViewById(com.example.lcthack.R.id.mouth);
+        String[] months = getResources().getStringArray(com.example.lcthack.R.array.months_array);
         String[] selectedMonth = months[mouthJSON].split(" ");
         mouth.setText(selectedMonth[1]);
 
@@ -226,11 +249,11 @@ public class CalendarActivity extends AppCompatActivity {
     }
     public void onMonthClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setItems(R.array.months_array, new DialogInterface.OnClickListener() {
+        builder.setItems(com.example.lcthack.R.array.months_array, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Обработка выбора месяца
-                        String[] months = getResources().getStringArray(R.array.months_array);
+                        String[] months = getResources().getStringArray(com.example.lcthack.R.array.months_array);
                         String[] selectedMonth = months[which].split(" ");
 
                         parseJSONFile(Integer.parseInt(selectedMonth[0])-1);
@@ -334,7 +357,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private String loadJSONFromAsset(int m) {
         String json;
-        String[] months = getResources().getStringArray(R.array.mouths_en);
+        String[] months = getResources().getStringArray(com.example.lcthack.R.array.mouths_en);
         String[] selectedMonth = months[m].split(" ");
         try {
             InputStream inputStream = getAssets().open( selectedMonth[1] + ".json");

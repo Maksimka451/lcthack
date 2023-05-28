@@ -1,4 +1,35 @@
 <resources>
+
+    <string-array name="months_array">
+        <item>1 Январь </item>
+        <item>2 Февраль</item>
+        <item>3 Март</item>
+        <item>4 Апрель</item>
+        <item>5 Май</item>
+        <item>6 Июнь</item>
+        <item>7 Июль</item>
+        <item>8 Август</item>
+        <item>9 Сентябрь</item>
+        <item>10 Октябрь</item>
+        <item>11 Ноябрь</item>
+        <item>12 Декабрь</item>
+    </string-array>
+
+    <string-array name="mouths_en">
+        <item>1 january</item>
+        <item>2 february</item>
+        <item>3 march</item>
+        <item>4 april</item>
+        <item>5 may</item>
+        <item>6 june</item>
+        <item>7 july</item>
+        <item>8 august</item>
+        <item>9 september</item>
+        <item>10 october</item>
+        <item>11 november</item>
+        <item>12 december</item>
+    </string-array>
+
     <string name="app_name">My Application</string>
     <string name="RegistrationHeader">Доступ к информационным ресурсам города Москвы</string>
     <string name="RegistrationUnderHeader">Цифровая платформа Открытый контроль</string>
@@ -70,4 +101,5 @@
     <string name="kontrol_example">Привет контроль</string>
     <string name="sign_out">Sign Out</string>
     <string name="select_date">Select Date</string>
+    <string name="consultation_menu">Консультация</string>
 </resources>

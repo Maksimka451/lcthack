@@ -13,5 +13,8 @@
     <color name="colorAccent">#ff7058</color>
     <color name="colorPrimary">#4CAF50</color>
     <color name="colorPrimaryDark">#388E3C</color>
+    <color name="calendar_text_color">#000000</color>
+    <color name="calendar_separator_color">#FFFFFF</color>
+    <color name="calendar_separator_red">#F54027</color>
 
 </resources>
