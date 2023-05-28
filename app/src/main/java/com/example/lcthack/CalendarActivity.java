@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +19,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +48,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -57,12 +69,13 @@ public class CalendarActivity extends AppCompatActivity {
     Set<Integer> coloredPositions;
     String[] daysOfWeek = new String[7];
 
+    String[] dateForBase;
+
     AdapterView<?> bufParent;
     int bufPosition;
     int mouthJSON;
 
-
-
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -206,6 +219,8 @@ public class CalendarActivity extends AppCompatActivity {
         String[] selectedMonth = months[mouthJSON].split(" ");
         mouth.setText(selectedMonth[1]);
 
+        mAuth = FirebaseAuth.getInstance();
+
     }
 
     public void startCalendarAdapter(int mouth){
@@ -239,11 +254,98 @@ public class CalendarActivity extends AppCompatActivity {
                                     data[0] = slotsDay.get(position).getDepartment();
                                     data[3] = slotsDay.get(position).getDate();
                                     data[4] = slotsDay.get(position).getTime();
+
+                                    final DatabaseReference RootRef;
+                                    final DatabaseReference RootRef2;
+                                    RootRef2 = FirebaseDatabase.getInstance().getReference();
+                                    RootRef = FirebaseDatabase.getInstance().getReference();
+
+                                    RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(!(snapshot.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[2]).exists()))
+                                            {
+                                                HashMap<String, Object> userDataMap = new HashMap<>();
+                                                userDataMap.put("KNO", data[0]);
+                                                userDataMap.put("Type of control", data[1]);
+                                                userDataMap.put("Theme of consulting", data[2]);
+                                                userDataMap.put("Date", data[3]);
+                                                userDataMap.put("Time", data[4]);
+
+                                                RootRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[2]).updateChildren(userDataMap)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if(task.isSuccessful()){
+                                                                    Toast.makeText(CalendarActivity.this, "База данных обновилась!", Toast.LENGTH_SHORT ).show();
+                                                                } else {
+                                                                    Toast.makeText(CalendarActivity.this, "Не удалось обновить базу данных!", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                            } else
+                                            {
+                                                Toast.makeText(CalendarActivity.this, "Произошла ошибка!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                                    RootRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(!(snapshot.child("Consulting").child(mAuth.getCurrentUser().getUid()).exists()))
+                                            {
+                                                HashMap<String, Object> userDataMap = new HashMap<>();
+                                                userDataMap.put("KNO", data[0]);
+                                                userDataMap.put("Type of control", data[1]);
+                                                userDataMap.put("Theme of consulting", data[2]);
+                                                userDataMap.put("Date", data[3]);
+                                                userDataMap.put("Time", data[4]);
+                                                userDataMap.put("UserId", mAuth.getCurrentUser().getUid());
+                                                userDataMap.put("UserEmail", mAuth.getCurrentUser().getEmail());
+
+                                                RootRef.child("Consulting").child(mAuth.getCurrentUser().getUid()).updateChildren(userDataMap)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if(task.isSuccessful()){
+                                                                    Toast.makeText(CalendarActivity.this, "База данных обновилась 2!", Toast.LENGTH_SHORT ).show();
+                                                                } else {
+                                                                    Toast.makeText(CalendarActivity.this, "Не удалось обновить базу данных 2!", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                            } else
+                                            {
+                                                Toast.makeText(CalendarActivity.this, "Произошла ошибка 2!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
                                 }
                             })
                             .setNegativeButton("Отмена", null)
                             .show();
                 }
+
+
+
+
+
+
+
+
+
             });
         });
     }
