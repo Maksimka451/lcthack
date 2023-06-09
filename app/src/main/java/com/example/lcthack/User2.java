@@ -8,16 +8,16 @@ public class User2 {
 
     }
 
-    public User2(String id) {
-        this.control = id;
+    public User2(String control) {
+        this.control = control;
     }
 
-    public String getId() {
+    public String getControl() {
         return control;
     }
 
-    public void setId(String id) {
-        this.control = id;
+    public void setControl(String control) {
+        this.control = control;
     }
 
 }

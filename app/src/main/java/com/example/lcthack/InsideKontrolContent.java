@@ -65,22 +65,25 @@ public class InsideKontrolContent extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot controlSnapshot) {
                             // обработка данных, полученных из базы данных
-                            User2 user2 = controlSnapshot.getValue(User2.class);
-                            String control = controlSnapshot.getKey(); // получаем консультацию текущего пользователя
-                            // делаем что-то с полученным значением
-                            DatabaseReference consultingDataRef = userDataRef.child(control);
-                            consultingDataRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    ItemControlBanner itemControlBanner = snapshot.getValue(ItemControlBanner.class);
-                                    items.add(itemControlBanner);
-                                }
+                            for(DataSnapshot ctrlSnapshot: controlSnapshot.getChildren()){
+                                User2 user2 = ctrlSnapshot.getValue(User2.class);
+                                String control = ctrlSnapshot.getKey(); // получаем консультацию текущего пользователя
+                                // делаем что-то с полученным значением
+                                DatabaseReference consultingDataRef = userDataRef.child(control);
+                                consultingDataRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        ItemControlBanner itemControlBanner = snapshot.getValue(ItemControlBanner.class);
+                                        items.add(itemControlBanner);
+                                    }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
+                                    }
+                                });
+                            }
+
                         }
 
                         @Override

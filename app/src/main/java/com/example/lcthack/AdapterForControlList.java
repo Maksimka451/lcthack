@@ -45,9 +45,9 @@ public class AdapterForControlList extends RecyclerView.Adapter<AdapterForContro
 
         holder.dateView.setText(item.date);
         holder.knoView.setText(item.kno);
-        holder.typeView.setText(item.typeofcontrol);
+        holder.typeView.setText(item.themeofconsulting);
         holder.timeView.setText(item.time);
-        holder.themeView.setText(item.themeofconsulting);
+        holder.themeView.setText(item.typeofcontrol);
     }
 
     @Override
