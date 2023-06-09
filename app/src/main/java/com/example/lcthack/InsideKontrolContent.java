@@ -69,7 +69,18 @@ public class InsideKontrolContent extends AppCompatActivity {
                             String control = controlSnapshot.getKey(); // получаем консультацию текущего пользователя
                             // делаем что-то с полученным значением
                             DatabaseReference consultingDataRef = userDataRef.child(control);
+                            consultingDataRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    ItemControlBanner itemControlBanner = snapshot.getValue(ItemControlBanner.class);
+                                    items.add(itemControlBanner);
+                                }
 
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                         }
 
                         @Override
