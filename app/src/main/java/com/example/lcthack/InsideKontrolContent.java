@@ -1,7 +1,11 @@
 package com.example.lcthack;
 
+import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -18,10 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class InsideKontrolContent extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    public ItemControlBanner descriptionData;
+    RecyclerView recyclerView;
 
 
     TextView date, kno, type, time, theme, email, id;
@@ -32,6 +38,8 @@ public class InsideKontrolContent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inside_kontrol_content);
 
+        recyclerView = findViewById(R.id.my_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -40,36 +48,48 @@ public class InsideKontrolContent extends AppCompatActivity {
         type = findViewById(R.id.textView33);
         time = findViewById(R.id.textView34);
         theme = findViewById(R.id.textView35);
-        email = findViewById(R.id.textView36);
-        id = findViewById(R.id.textView37);
 
 
-        final DatabaseReference Rootref;
-        Rootref = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference UserRef;
+        UserRef = FirebaseDatabase.getInstance().getReference();
 
-        Rootref.child("Consulting").child("Department").addListenerForSingleValueEvent(new ValueEventListener() {
+        UserRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                descriptionData = snapshot.getValue(ItemControlBanner.class);
-                if (  descriptionData.getTypeofcontrol() == null || descriptionData.getKno() == null || descriptionData.getThemeofconsulting() == null || descriptionData.getDate() == null || descriptionData.getTime() == null || descriptionData.getUseremail() == null || descriptionData.getUserid() == null) {
-                    Toast.makeText(InsideKontrolContent.this, "Error", Toast.LENGTH_SHORT).show();
-                } else {
-                    date.setText(descriptionData.getDate());
-                    kno.setText(descriptionData.getKno());
-                    time.setText(descriptionData.getTime());
-                    type.setText(descriptionData.getTypeofcontrol());
-                    theme.setText(descriptionData.getThemeofconsulting());
-                    email.setText(descriptionData.getUseremail());
-                    id.setText(descriptionData.getUserid());
-                }
+                ArrayList<ItemControlBanner> items = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    User user = userSnapshot.getValue(User.class);
+                    String userId = userSnapshot.getKey(); // получаем ID текущего пользователя
+                    DatabaseReference userDataRef = UserRef.child(userId).child("Consulting");
+                    userDataRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot controlSnapshot) {
+                            // обработка данных, полученных из базы данных
+                            User2 user2 = controlSnapshot.getValue(User2.class);
+                            String control = controlSnapshot.getKey(); // получаем консультацию текущего пользователя
+                            // делаем что-то с полученным значением
+                            DatabaseReference consultingDataRef = userDataRef.child(control);
 
-            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            // обработка ошибок
+                        }
+                    });
+
+                }
+                AdapterForControlList adapter = new AdapterForControlList(items);
+                recyclerView.setAdapter(adapter);
+
+        }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+
+            });
 
 
         Button sign_out_kontrol;

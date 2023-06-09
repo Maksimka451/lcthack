@@ -27,96 +27,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView31"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
 
-        <TextView
-            android:id="@+id/textView32"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/textView34"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/textView36"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/textView37"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:background="@drawable/back_plain_reg"
-            android:ems="10"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="10dp"
-            tools:background="@drawable/calendare_back"
-            tools:ignore="MissingConstraints"
-            tools:layout_marginTop="5dp" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

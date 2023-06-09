@@ -7,21 +7,18 @@ public class ItemControlBanner {
     String themeofconsulting;
     String date;
     String time;
-    String userid;
-    String useremail;
 
     public ItemControlBanner(){
 
     }
 
-    public ItemControlBanner(String kno, String typeofcontrol, String themeofconsulting, String date, String time, String userid, String useremail) {
+    public ItemControlBanner(String kno, String typeofcontrol, String themeofconsulting, String date, String time) {
         this.kno = kno;
         this.typeofcontrol = typeofcontrol;
         this.themeofconsulting = themeofconsulting;
         this.date = date;
         this.time = time;
-        this.userid = userid;
-        this.useremail = useremail;
+
     }
 
     public String getKno() {
@@ -62,21 +59,5 @@ public class ItemControlBanner {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getUseremail() {
-        return useremail;
-    }
-
-    public void setUseremail(String useremail) {
-        this.useremail = useremail;
     }
 }

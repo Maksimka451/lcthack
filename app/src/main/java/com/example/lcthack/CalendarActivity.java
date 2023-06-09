@@ -256,8 +256,6 @@ public class CalendarActivity extends AppCompatActivity {
                                     data[4] = slotsDay.get(position).getTime();
 
                                     final DatabaseReference RootRef;
-                                    final DatabaseReference RootRef2;
-                                    RootRef2 = FirebaseDatabase.getInstance().getReference();
                                     RootRef = FirebaseDatabase.getInstance().getReference();
 
                                     RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -271,6 +269,8 @@ public class CalendarActivity extends AppCompatActivity {
                                                 userDataMap.put("themeofconsulting", data[2]);
                                                 userDataMap.put("date", data[3]);
                                                 userDataMap.put("time", data[4]);
+//                                                userDataMap.put("useremail", mAuth.getCurrentUser().getEmail());
+//                                                userDataMap.put("userid", mAuth.getCurrentUser().getUid());
 
                                                 RootRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("Consulting").child(data[0]).updateChildren(userDataMap)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -286,43 +286,6 @@ public class CalendarActivity extends AppCompatActivity {
                                             } else
                                             {
                                                 Toast.makeText(CalendarActivity.this, "Произошла ошибка!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-
-                                    RootRef2.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(!(snapshot.child("Consulting").child(data[0]).exists()))
-                                            {
-                                                HashMap<String, Object> userDataMap = new HashMap<>();
-                                                userDataMap.put("kno", data[0]);
-                                                userDataMap.put("typeofcontrol", data[1]);
-                                                userDataMap.put("themeofconsulting", data[2]);
-                                                userDataMap.put("date", data[3]);
-                                                userDataMap.put("time", data[4]);
-                                                userDataMap.put("userid", mAuth.getCurrentUser().getUid());
-                                                userDataMap.put("useremail", mAuth.getCurrentUser().getEmail());
-
-                                                RootRef.child("Consulting").child(data[0]).updateChildren(userDataMap)
-                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<Void> task) {
-                                                                if(task.isSuccessful()){
-                                                                    Toast.makeText(CalendarActivity.this, "База данных обновилась 2!", Toast.LENGTH_SHORT ).show();
-                                                                } else {
-                                                                    Toast.makeText(CalendarActivity.this, "Не удалось обновить базу данных 2!", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            }
-                                                        });
-                                            } else
-                                            {
-                                                Toast.makeText(CalendarActivity.this, "Произошла ошибка 2!", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
