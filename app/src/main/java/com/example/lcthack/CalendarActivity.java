@@ -84,11 +84,12 @@ public class CalendarActivity extends AppCompatActivity {
     int bufPosition;
     int mouthJSON;
 
-    private FirebaseAuth mAuth;
 
     private static final int NOTIFY_ID = 1;
 
     private static String CHANNEL_ID = "CHANNEL_ID";
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -332,6 +333,8 @@ public class CalendarActivity extends AppCompatActivity {
             });
         });
     }
+
+
 
     public static void createChannelIfNeeded(NotificationManager manager){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
