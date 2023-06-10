@@ -1,8 +1,14 @@
 package com.example.lcthack;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +21,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,6 +86,9 @@ public class CalendarActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private static final int NOTIFY_ID = 1;
+
+    private static String CHANNEL_ID = "CHANNEL_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,18 +103,18 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                if(item.getItemId() == R.id.inside_content){
+                if (item.getItemId() == R.id.inside_content) {
                     startActivity(new Intent(getApplicationContext()
                             , InsideContent.class));
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(0, 0);
                     return true;
-                } else if(item.getItemId() == R.id.services){
+                } else if (item.getItemId() == R.id.services) {
 
                     return true;
-                } else if(item.getItemId() == R.id.chat){
+                } else if (item.getItemId() == R.id.chat) {
                     startActivity(new Intent(getApplicationContext()
                             , Chat.class));
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;
@@ -223,7 +235,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
-    public void startCalendarAdapter(int mouth){
+    public void startCalendarAdapter(int mouth) {
         dates = getDates(mouth);
         coloredPositions = getColoredPositions();
         calendarAdapter = new CalendarAdapter(dates, coloredPositions, daysOfWeek);
@@ -233,8 +245,9 @@ public class CalendarActivity extends AppCompatActivity {
         calendarAdapter.setItemClickListener(position -> {
             SimpleDateFormat format = new SimpleDateFormat("M/d/yy");
             List<Slot> slotsDay = new ArrayList<>();
-            for(Slot item : slotsBuf){
-                if(item.getDate().equals(format.format(dates.get(position - 7)))) slotsDay.add(item);
+            for (Slot item : slotsBuf) {
+                if (item.getDate().equals(format.format(dates.get(position - 7))))
+                    slotsDay.add(item);
             }
             slotAdapter2 = new SlotAdapter(slotsDay);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CalendarActivity.this);
@@ -254,6 +267,22 @@ public class CalendarActivity extends AppCompatActivity {
                                     data[0] = slotsDay.get(position).getDepartment();
                                     data[3] = slotsDay.get(position).getDate();
                                     data[4] = slotsDay.get(position).getTime();
+
+                                    NotificationManager  notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                                    Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0 , intent, PendingIntent.FLAG_IMMUTABLE);
+                                    NotificationCompat.Builder notificationBuilder =
+                                            new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                                    .setAutoCancel(false)
+                                                    .setSmallIcon(R.drawable.bell)
+                                                    .setWhen(System.currentTimeMillis())
+                                                    .setContentIntent(pendingIntent)
+                                                    .setContentTitle("Запись на консультацию")
+                                                    .setContentText("Создана запись на консультацию")
+                                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                                    createChannelIfNeeded(notificationManager);
+                                    notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
 
                                     final DatabaseReference RootRef;
                                     final DatabaseReference RootRef2;
@@ -337,17 +366,15 @@ public class CalendarActivity extends AppCompatActivity {
                             .setNegativeButton("Отмена", null)
                             .show();
                 }
-
-
-
-
-
-
-
-
-
             });
         });
+    }
+
+    public static void createChannelIfNeeded(NotificationManager manager){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(notificationChannel);
+        }
     }
     public void onMonthClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
